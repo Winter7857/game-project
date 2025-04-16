@@ -30,3 +30,11 @@ model User {
   password String
   role     String @default("user") // <-- "user" or "admin"
 }
+model Game {
+  id     String @id @default(uuid())
+  name   String
+  price  Int
+  image  String // Store image path like `/uploads/game1.png`
+  createdAt DateTime @default(now())
+}
+

@@ -35,7 +35,12 @@ export default function AdminPage() {
 
         {/* Buttons moved to the bottom */}
         <div className="mt-auto mb-8 flex gap-6">
-          <button className="bg-gray-200 text-black px-6 py-2 rounded">add</button>
+        <button
+    onClick={() => window.location.href = "/games/new"}
+    className="bg-gray-200 text-black px-6 py-2 rounded"
+  >
+    add
+  </button>
           <button className="bg-gray-200 text-black px-6 py-2 rounded">edit</button>
           <button className="bg-gray-200 text-black px-6 py-2 rounded">delete</button>
         </div>
