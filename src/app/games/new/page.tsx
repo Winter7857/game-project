@@ -45,11 +45,12 @@ export default function AddGamePage() {
         Upload Game
       </button>
       <button
-          onClick={() => router.push("/admin")}
-          className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded w-full"
-        >
-          Back to Admin
-        </button>
+  type="button" // ⬅️ prevents accidental form submission
+  onClick={() => router.push("/admin")}
+  className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded w-full"
+>
+  Back to Admin
+</button>
     </form>
   )
 }
