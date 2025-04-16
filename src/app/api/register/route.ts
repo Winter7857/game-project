@@ -36,6 +36,7 @@ export async function POST(req: Request) {
         data: {
           email: body.email,
           password: hashed,
+          role: "user", // or "admin" if you want to hardcode for testing
         },
       })
   

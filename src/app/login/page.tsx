@@ -23,27 +23,46 @@ export default function LoginPage() {
       email: formData.get("email") as string,
       password: formData.get("password") as string,
     }
-
+  
     const result = schema.safeParse(data)
     if (!result.success) {
       setError("Invalid email or password (min 6 characters).")
       return
     }
-
+  
     const endpoint = isRegistering ? "/api/register" : "/api/login"
-
+  
     const res = await fetch(endpoint, {
       method: "POST",
       body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-
+  
     if (res.ok) {
-      router.push("/dashboard")
+      if (isRegistering) {
+        router.push("/register-success") // ✅ after register
+      } else {
+        router.push("/dashboard") // ✅ after login
+      }
     } else {
       const msg = await res.text()
       setError(msg || "Something went wrong.")
     }
+    if (res.ok) {
+      const result = await res.json()
+      const role = result.role
+    
+      if (role === "admin") {
+        router.push("/admin")
+      } else {
+        router.push("/dashboard")
+      }
+    }
+    
   }
+  
 
   return (
     <div className="max-w-md mx-auto p-6 space-y-4">

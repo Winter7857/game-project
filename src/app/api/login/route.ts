@@ -23,6 +23,9 @@ export async function POST(req: Request) {
     return new Response("Invalid email or password", { status: 401 })
   }
 
-  // NOTE: You should implement JWT or cookie session here
-  return new Response("Login success", { status: 200 })
+  // ✅ Send back the role as JSON
+  return Response.json({
+    message: "Login success",
+    role: user.role,
+  })
 }
