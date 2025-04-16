@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 
+import { useRouter } from "next/navigation"
 export default function AddGamePage() {
   const [preview, setPreview] = useState("")
-
+  const router = useRouter()
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -43,6 +44,12 @@ export default function AddGamePage() {
       <button type="submit" className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded w-full">
         Upload Game
       </button>
+      <button
+          onClick={() => router.push("/admin")}
+          className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded w-full"
+        >
+          Back to Admin
+        </button>
     </form>
   )
 }
