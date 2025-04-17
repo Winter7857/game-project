@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 type Game = {
   id: string;
@@ -38,39 +39,12 @@ export default function UserDashboardPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-800 text-white">
-      <main className="flex-grow flex flex-col items-center text-center p-6">
-        {/* Logout button */}
-        <div className="w-full flex justify-between mb-4">
-  <button
-    onClick={() => window.location.href = "/dashboard"}
-    className="bg-transparent text-white font-bold text-xl"
-  >
-    LIST GAMES
-  </button>
+      <Header /> {/* ✅ Reusable nav */}
 
-  <div className="flex gap-4">
-    <button
-      onClick={() => window.location.href = "/cart"}
-      className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded"
-    >
-      🛒 Cart
-    </button>
+      <main className="flex-grow flex flex-col px-6 py-8">
+        <h1 className="text-5xl font-bold mb-10 text-center">GAME STORE</h1>
 
-    <button
-      onClick={() => (window.location.href = "/login")}
-      className="bg-gray-200 text-black px-4 py-1 rounded"
-    >
-      Logout
-    </button>
-  </div>
-</div>
-
-
-        {/* Title */}
-        <h1 className="text-5xl font-bold mb-10">GAME STORE</h1>
-
-        {/* Game cards */}
-        <div className="flex flex-wrap gap-10 mb-20 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mb-20">
           {games.length === 0 ? (
             <p className="text-gray-400">No games available</p>
           ) : (
