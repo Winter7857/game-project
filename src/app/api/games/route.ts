@@ -42,3 +42,24 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json(updatedGame);
   }
   
+export async function DELETE(req: NextRequest) {
+    const prisma = new PrismaClient();
+    const body = await req.json();
+    const { name } = body;
+  
+    if (!name) {
+      return NextResponse.json({ error: "Missing game name" }, { status: 400 });
+    }
+  
+    try {
+      await prisma.game.delete({
+        where: { name }, // ✅ this only works if name is unique!
+      });
+  
+      return NextResponse.json({ success: true });
+    } catch (error) {
+      console.error("DELETE failed:", error);
+      return NextResponse.json({ error: "Failed to delete game" }, { status: 500 });
+    }
+  }
+  

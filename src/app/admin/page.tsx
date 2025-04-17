@@ -67,7 +67,7 @@ export default function AdminPage() {
             onClick={() => (window.location.href = "/games/new")}
             className="bg-gray-200 text-black px-6 py-2 rounded"
           >
-            add
+            Add
           </button>
           <button
   onClick={() => (window.location.href = "/game/edit")}
@@ -75,9 +75,12 @@ export default function AdminPage() {
 >
   Edit
 </button>
-          <button className="bg-gray-200 text-black px-6 py-2 rounded">
-            delete
-          </button>
+<button
+    onClick={() => window.location.href = "/game/delete"}
+    className="bg-gray-200 text-black px-6 py-2 rounded"
+  >
+    Delete
+  </button>
         </div>
       </main>
 

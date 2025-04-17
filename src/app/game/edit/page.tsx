@@ -63,9 +63,19 @@ export default function EditGamePage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-10">
+    <div className="relative min-h-screen bg-slate-900 text-white p-10">
+  {/* Top-right fixed back button */}
+  <div className="absolute top-6 right-6 z-50">
+    <button
+      type="button"
+      onClick={() => router.push("/admin")}
+      className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 px-4 rounded shadow"
+    >
+      Back to Admin Dashboard
+    </button>
+  </div>
       <h1 className="text-3xl font-bold mb-6 text-center">Edit Game</h1>
-
+      
       <input
         type="text"
         placeholder="Search game by name..."
@@ -119,7 +129,7 @@ export default function EditGamePage() {
   placeholder="Image URL"
   required
 />
-
+        
 
           <button
             type="submit"
@@ -135,13 +145,7 @@ export default function EditGamePage() {
           >
             Cancel
           </button>
-          <button
-  type="button"
-  onClick={() => router.push("/admin")}
-  className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded"
->
-  Back to Admin Dashboard
-</button>
+          
 
         </form>
       )}
