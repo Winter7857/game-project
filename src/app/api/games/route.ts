@@ -26,3 +26,19 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json(newGame);
 }
+export async function PUT(req: NextRequest) {
+    const body = await req.json();
+    const { id, name, price, image } = body;
+  
+    if (!id || !name || !price || !image) {
+      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+  
+    const updatedGame = await prisma.game.update({
+      where: { id },
+      data: { name, price, image },
+    });
+  
+    return NextResponse.json(updatedGame);
+  }
+  

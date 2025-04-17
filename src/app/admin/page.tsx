@@ -69,9 +69,12 @@ export default function AdminPage() {
           >
             add
           </button>
-          <button className="bg-gray-200 text-black px-6 py-2 rounded">
-            edit
-          </button>
+          <button
+  onClick={() => (window.location.href = "/game/edit")}
+  className="bg-gray-200 text-black px-6 py-2 rounded"
+>
+  Edit
+</button>
           <button className="bg-gray-200 text-black px-6 py-2 rounded">
             delete
           </button>

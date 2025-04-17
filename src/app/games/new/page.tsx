@@ -31,7 +31,7 @@ export default function NewGamePage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
+    <div className="min-h-screen flex items-center justify-center bg-slate-800 text-white">
       <form
         onSubmit={handleSubmit}
         className="bg-slate-500 p-8 rounded-lg flex flex-col gap-4 w-96"
@@ -77,7 +77,7 @@ export default function NewGamePage() {
           onClick={() => router.push("/admin")}
           className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded"
         >
-          Back to Admin
+          Back to Admin Dasborad
         </button>
       </form>
     </div>
