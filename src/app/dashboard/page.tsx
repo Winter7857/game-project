@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-
+import toast from "react-hot-toast";
 type Game = {
   id: string;
   name: string;
@@ -23,18 +23,23 @@ export default function UserDashboardPage() {
 
   const handleAddToCart = (game: Game) => {
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
+  
     const alreadyInCart = existingCart.find((item: Game) => item.id === game.id);
     if (alreadyInCart) {
-      alert(`${game.name} is already in the cart.`);
+      toast.error(`${game.name} is already in the cart.`, {
+        duration: 2000, // Show for 2 seconds (2000 ms)
+      });
       return;
     }
-
+  
     const newCart = [...existingCart, game];
     localStorage.setItem("cart", JSON.stringify(newCart));
-    alert(`${game.name} added to cart!`);
+    toast.success(`${game.name} added to cart!`, {
+      duration: 2000, // Shows for 2 seconds
+    });
+    
   };
-
+  
   return (
     <div className="min-h-screen flex flex-col bg-slate-800 text-white">
       <Header />
@@ -55,7 +60,7 @@ export default function UserDashboardPage() {
                 key={game.id}
                 className="flex flex-col items-center bg-slate-700 p-4 rounded-lg shadow hover:shadow-lg transition-all"
               >
-                <div className="w-full max-w-[180px] aspect-[2/3] bg-gray-200 overflow-hidden rounded shadow mb-2">
+                 <div className="w-full max-w-[180px] aspect-[2/3] bg-gray-200 overflow-hidden rounded shadow mb-2">
   <img
     src={game.image}
     alt={game.name}

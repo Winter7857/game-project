@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Game = {
   id: string;
@@ -28,22 +29,47 @@ export default function DeleteGameByNamePage() {
     game.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleDeleteByName = async (name: string) => {
-    if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
-
-    const res = await fetch("/api/games", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
+  const handleDeleteByName = (name: string) => {
+    toast((t) => (
+      <div className="text-white">
+        <p>Are you sure you want to delete <b>{name}</b>?</p>
+        <div className="flex justify-end gap-2 mt-2">
+          <button
+            onClick={async () => {
+              toast.dismiss(t.id);
+  
+              const res = await fetch("/api/games", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name }),
+              });
+  
+              if (res.ok) {
+                toast.success(` "${name}" deleted`);
+                setGames((prev) => prev.filter((g) => g.name !== name));
+                setSearch("");
+              } else {
+                toast.error("❌ Failed to delete.");
+              }
+            }}
+            className="bg-red-500 text-white px-3 py-1 rounded"
+          >
+            Confirm
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="bg-gray-500 text-white px-3 py-1 rounded"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ), {
+      duration: 10000,
+      style: {
+        background: "#1e293b",
+      },
     });
-
-    if (res.ok) {
-      alert(`"${name}" deleted successfully`);
-      setGames((prev) => prev.filter((g) => g.name !== name));
-      setSearch("");
-    } else {
-      alert("Failed to delete.");
-    }
   };
 
   return (

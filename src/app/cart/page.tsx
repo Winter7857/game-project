@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import toast from "react-hot-toast";
 type Game = {
   id: string;
   name: string;
@@ -26,18 +26,47 @@ export default function CartPage() {
   const handleCheckout = () => {
     localStorage.removeItem("cart");
     setCart([]);
-    alert("✅ Order placed successfully!");
+    toast.success(" Order placed successfully!"); // ✅ Toast instead of alert
     router.push("/dashboard");
   };
+  
 
   const handleRemove = (id: string) => {
-    if (!confirm("Remove this game from your cart?")) return;
-
-    const newCart = cart.filter((game) => game.id !== id);
-    setCart(newCart);
-    localStorage.setItem("cart", JSON.stringify(newCart));
+    toast((t) => (
+      <div className="text-white">
+        <p>Remove this game from your cart?</p>
+        <div className="flex justify-end gap-2 mt-2">
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              const newCart = cart.filter((game) => game.id !== id);
+              setCart(newCart);
+              localStorage.setItem("cart", JSON.stringify(newCart));
+              toast.success("Game removed from cart.", {
+                duration: 2000,
+                icon: "🗑️",
+              });
+              
+            }}
+            className="bg-red-500 text-white px-3 py-1 rounded"
+          >
+            Confirm
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="bg-gray-500 text-white px-3 py-1 rounded"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ), {
+      duration: 10000,
+      style: {
+        background: "#1e293b",
+      },
+    });
   };
-
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">

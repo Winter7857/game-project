@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type Game = {
   id: string;
@@ -51,11 +52,12 @@ export default function EditGamePage() {
     });
 
     if (res.ok) {
-      alert("Game updated!");
-      router.push("/admin");
-    } else {
-      alert("Failed to update.");
-    }
+        toast.success("Game updated!");
+        router.push("/admin");
+      } else {
+        toast.error("❌ Failed to update.");
+      }
+      
   };
 
   const filteredGames = games.filter((game) =>

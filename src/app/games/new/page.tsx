@@ -1,5 +1,5 @@
 "use client";
-
+import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -23,11 +23,12 @@ export default function NewGamePage() {
     });
 
     if (res.ok) {
-      alert("Game added!");
+      toast.success("Game added!");
       router.push("/admin");
     } else {
-      alert("Failed to add game.");
+      toast.error("❌ Failed to add game.");
     }
+    
   };
 
   return (
