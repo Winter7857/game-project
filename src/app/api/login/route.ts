@@ -22,6 +22,7 @@ export async function POST(req: Request) {
   if (!user || !(await compare(body.password, user.password))) {
     return new Response("Invalid email or password", { status: 401 })
   }
+  
 
   // ✅ Send back the role as JSON
   return Response.json({

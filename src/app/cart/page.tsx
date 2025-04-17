@@ -29,18 +29,18 @@ export default function CartPage() {
     alert("✅ Order placed successfully!");
     router.push("/dashboard");
   };
+
   const handleRemove = (id: string) => {
     if (!confirm("Remove this game from your cart?")) return;
-  
+
     const newCart = cart.filter((game) => game.id !== id);
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
-  
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6">
-      <div className="flex justify-between mb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
         <h1 className="text-3xl font-bold">🛒 Your Cart</h1>
         <button
           onClick={() => router.push("/dashboard")}
@@ -55,34 +55,32 @@ export default function CartPage() {
       ) : (
         <div className="flex flex-col gap-6">
           {cart.map((game) => (
-  <div
-    key={game.id}
-    className="flex items-center justify-between gap-4 bg-slate-800 p-4 rounded shadow"
-  >
-    <div className="flex items-center gap-6">
-      <img
-        src={game.image}
-        alt={game.name}
-        className="w-20 h-28 object-cover rounded"
-      />
-      <div>
-        <p className="text-xl font-semibold">{game.name}</p>
-        <p className="text-sm text-gray-300">{game.price} ฿</p>
-      </div>
-    </div>
+            <div
+              key={game.id}
+              className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-800 p-4 rounded shadow"
+            >
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left w-full">
+                <img
+                  src={game.image}
+                  alt={game.name}
+                  className="w-24 h-32 object-cover rounded mx-auto sm:mx-0"
+                />
+                <div>
+                  <p className="text-xl font-semibold">{game.name}</p>
+                  <p className="text-sm text-gray-300">{game.price} ฿</p>
+                </div>
+              </div>
 
-    {/* ❌ Remove Button */}
-    <button
-      onClick={() => handleRemove(game.id)}
-      className="text-red-400 hover:text-red-600 font-bold text-xl"
-      title="Remove from Cart"
-    >
-      ❌
-    </button>
-  </div>
-))}
+              <button
+                onClick={() => handleRemove(game.id)}
+                className="text-red-400 hover:text-red-600 font-bold text-xl mt-2 sm:mt-0"
+                title="Remove from Cart"
+              >
+                ❌
+              </button>
+            </div>
+          ))}
 
-          {/* Total Price + Checkout */}
           <div className="text-right mt-6">
             <p className="text-2xl font-bold mb-4">
               Total: <span className="text-green-400">{totalPrice} ฿</span>

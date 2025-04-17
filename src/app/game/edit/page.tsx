@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -50,12 +51,11 @@ export default function EditGamePage() {
     });
 
     if (res.ok) {
-        alert("Game updated!");
-        router.push("/admin"); // 👈 Redirect to admin page
-      } else {
-        alert("Failed to update.");
-      }
-      
+      alert("Game updated!");
+      router.push("/admin");
+    } else {
+      alert("Failed to update.");
+    }
   };
 
   const filteredGames = games.filter((game) =>
@@ -63,27 +63,30 @@ export default function EditGamePage() {
   );
 
   return (
-    <div className="relative min-h-screen bg-slate-900 text-white p-10">
-  {/* Top-right fixed back button */}
-  <div className="absolute top-6 right-6 z-50">
-    <button
-      type="button"
-      onClick={() => router.push("/admin")}
-      className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 px-4 rounded shadow"
-    >
-      Back to Admin Dashboard
-    </button>
-  </div>
-      <h1 className="text-3xl font-bold mb-6 text-center">Edit Game</h1>
-      
+    <div className="relative min-h-screen bg-slate-900 text-white px-4 py-10 sm:px-10">
+      {/* Back button on top-right */}
+      <div className="absolute top-4 right-4 z-50">
+        <button
+          type="button"
+          onClick={() => router.push("/admin")}
+          className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 px-4 rounded shadow"
+        >
+          Back to Admin Dashboard
+        </button>
+      </div>
+
+      <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center">Edit Game</h1>
+
+      {/* Search input */}
       <input
         type="text"
         placeholder="Search game by name..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-         className="p-2 rounded text-white bg-slate-700 w-full max-w-md mx-auto mb-6"
+        className="p-2 rounded text-white bg-slate-700 w-full max-w-lg mx-auto block mb-6"
       />
 
+      {/* Game selection list */}
       {filteredGames.length > 0 && !selectedGame && (
         <div className="flex flex-wrap gap-4 justify-center">
           {filteredGames.map((game) => (
@@ -98,38 +101,38 @@ export default function EditGamePage() {
         </div>
       )}
 
+      {/* Edit form */}
       {selectedGame && (
         <form
           onSubmit={handleSubmit}
-          className="mt-10 flex flex-col gap-4 max-w-md mx-auto"
+          className="mt-10 flex flex-col gap-4 max-w-md w-full mx-auto bg-slate-800 p-6 rounded-lg"
         >
           <input
-  type="text"
-  value={name}
-  onChange={(e) => setName(e.target.value)}
-  className="p-2 rounded text-white bg-slate-800 placeholder-gray-400"
-  placeholder="Game Name"
-  required
-/>
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="p-2 rounded text-white bg-slate-700 placeholder-gray-400"
+            placeholder="Game Name"
+            required
+          />
 
-<input
-  type="number"
-  value={price}
-  onChange={(e) => setPrice(e.target.value)}
-  className="p-2 rounded text-white bg-slate-800 placeholder-gray-400"
-  placeholder="Price"
-  required
-/>
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="p-2 rounded text-white bg-slate-700 placeholder-gray-400"
+            placeholder="Price"
+            required
+          />
 
-<input
-  type="text"
-  value={image}
-  onChange={(e) => setImage(e.target.value)}
-  className="p-2 rounded text-white bg-slate-800 placeholder-gray-400"
-  placeholder="Image URL"
-  required
-/>
-        
+          <input
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            className="p-2 rounded text-white bg-slate-700 placeholder-gray-400"
+            placeholder="Image URL"
+            required
+          />
 
           <button
             type="submit"
@@ -145,8 +148,6 @@ export default function EditGamePage() {
           >
             Cancel
           </button>
-          
-
         </form>
       )}
     </div>

@@ -31,12 +31,12 @@ export default function NewGamePage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-800 text-white">
+    <div className="min-h-screen flex items-center justify-center bg-slate-800 text-white px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-slate-500 p-8 rounded-lg flex flex-col gap-4 w-96"
+        className="w-full max-w-md bg-slate-600 p-6 sm:p-8 rounded-lg flex flex-col gap-4"
       >
-        <h1 className="text-2xl font-bold text-center">Add Game</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-center mb-2">Add Game</h1>
 
         <input
           type="text"
@@ -75,9 +75,9 @@ export default function NewGamePage() {
         <button
           type="button"
           onClick={() => router.push("/admin")}
-          className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded"
+          className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 rounded"
         >
-          Back to Admin Dasborad
+          Back to Admin Dashboard
         </button>
       </form>
     </div>

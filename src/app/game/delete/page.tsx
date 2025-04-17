@@ -15,7 +15,7 @@ export default function DeleteGameByNamePage() {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
-  // Fetch all games from the database
+  // Fetch all games
   useEffect(() => {
     fetch("/api/games")
       .then((res) => res.json())
@@ -23,15 +23,13 @@ export default function DeleteGameByNamePage() {
       .catch((err) => console.error("Failed to fetch games:", err));
   }, []);
 
-  // Filter by name
+  // Filter by search
   const filteredGames = games.filter((game) =>
     game.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Handle delete by name
   const handleDeleteByName = async (name: string) => {
-    const confirmDelete = confirm(`Are you sure you want to delete "${name}"?`);
-    if (!confirmDelete) return;
+    if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
 
     const res = await fetch("/api/games", {
       method: "DELETE",
@@ -40,19 +38,18 @@ export default function DeleteGameByNamePage() {
     });
 
     if (res.ok) {
-      alert(`Game "${name}" deleted successfully!`);
-      // remove from local state
+      alert(`"${name}" deleted successfully`);
       setGames((prev) => prev.filter((g) => g.name !== name));
-      setSearch(""); // optional: clear search after delete
+      setSearch("");
     } else {
       alert("Failed to delete.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-10 relative">
-      {/* Back to admin */}
-      <div className="absolute top-6 right-6">
+    <div className="min-h-screen bg-slate-900 text-white px-4 py-8 sm:px-10">
+      {/* Back Button */}
+      <div className="flex justify-end mb-6">
         <button
           onClick={() => router.push("/admin")}
           className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 px-4 rounded shadow"
@@ -61,33 +58,42 @@ export default function DeleteGameByNamePage() {
         </button>
       </div>
 
-      <h1 className="text-3xl font-bold text-center mb-6">Delete Game by Name</h1>
+      {/* Title */}
+      <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6">
+        Delete Game by Name
+      </h1>
 
+      {/* Search Field */}
       <input
         type="text"
         placeholder="Search game name..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="p-2 rounded text-white bg-slate-700 placeholder-gray-400 w-full max-w-md mx-auto mb-8 block"
+        className="p-3 rounded text-white bg-slate-700 placeholder-gray-400 w-full max-w-md mx-auto block mb-8"
       />
 
+      {/* Games */}
       {filteredGames.length > 0 ? (
-        <div className="flex flex-wrap gap-4 justify-center">
+       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
           {filteredGames.map((game) => (
             <div
               key={game.id}
-              className="bg-slate-800 border border-slate-600 rounded p-4 flex flex-col items-center"
+              className="bg-slate-800 border border-slate-600 rounded-lg p-4 flex flex-col items-center"
             >
-              <img
-                src={game.image}
-                alt={game.name}
-                className="w-40 h-52 object-cover mb-2 rounded"
-              />
+              <div className="w-full max-w-[220px] aspect-[2/3] bg-gray-200 overflow-hidden rounded shadow">
+  <img
+    src={game.image}
+    alt={game.name}
+    className="w-full h-full object-cover object-top"
+  />
+</div>
+
+
               <p className="text-lg font-semibold">{game.name}</p>
               <p className="text-sm text-gray-300">{game.price} ฿</p>
               <button
                 onClick={() => handleDeleteByName(game.name)}
-                className="mt-2 bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
+                className="mt-3 bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
               >
                 Delete
               </button>
@@ -95,7 +101,9 @@ export default function DeleteGameByNamePage() {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-400">No matching games found.</p>
+        <p className="text-center text-gray-400 mt-8">
+          No matching games found.
+        </p>
       )}
     </div>
   );
