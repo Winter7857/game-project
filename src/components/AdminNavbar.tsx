@@ -5,11 +5,17 @@ import { useRouter } from "next/navigation";
 export default function AdminNavbar() {
   const router = useRouter();
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    document.cookie = "user=; path=/; max-age=0"; // ❌ Clear cookie
+  const handleLogout = async () => {
+    // Call the API to remove the session cookie
+  await fetch("/api/logout", {
+    method: "POST",
+    credentials: "include", // Make sure cookies are sent
+  });
+    
     router.push("/login"); // 🔁 Redirect to login
+    
   };
+  
 
   return (
     <header className="w-full bg-slate-900 text-white px-6 py-4 border-b border-slate-700">
@@ -18,7 +24,7 @@ export default function AdminNavbar() {
 
         <div className="flex gap-4">
           <button
-            onClick={() => router.push("/games/new")}
+            onClick={() => router.push("/game/new")}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
           >
             ➕ Add

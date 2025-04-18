@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-
+import { redirect } from "next/navigation";
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
@@ -49,13 +49,12 @@ localStorage.setItem(
   JSON.stringify({ email, role })
 );
 
-// ✅ Store cookie for middleware use
-document.cookie = `user=${encodeURIComponent(JSON.stringify({ email, role }))}; path=/`;
+
 
 
       // 🔀 Redirect based on role
       if (role === "admin") {
-        router.push("/admin");
+        redirect("/admin");
       } else {
         router.push("/dashboard");
       }

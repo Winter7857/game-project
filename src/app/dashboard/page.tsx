@@ -27,7 +27,7 @@ export default function UserDashboardPage() {
     const alreadyInCart = existingCart.find((item: Game) => item.id === game.id);
     if (alreadyInCart) {
       toast.error(`${game.name} is already in the cart.`, {
-        duration: 2000, // Show for 2 seconds (2000 ms)
+        duration: 1800, // Show for 2 seconds (2000 ms)
       });
       return;
     }
@@ -35,7 +35,7 @@ export default function UserDashboardPage() {
     const newCart = [...existingCart, game];
     localStorage.setItem("cart", JSON.stringify(newCart));
     toast.success(`${game.name} added to cart!`, {
-      duration: 2000, // Shows for 2 seconds
+      duration: 1800, // Shows for 2 seconds
     });
     
   };
