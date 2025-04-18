@@ -29,9 +29,9 @@ export async function decrypt(input: string): Promise<Record<string, unknown>> {
 
 
 interface UserInput {
-    id: number;
+    id: string;
     email: string;
-    name: string;
+    name: string | null;
 }
 
 
