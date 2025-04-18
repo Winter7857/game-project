@@ -4,6 +4,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { redirect } from "next/navigation";
+
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
@@ -43,16 +44,8 @@ export default function LoginPage() {
       const result = await res.json();
       const { email, role } = result;
 
-      // ✅ Store user data in localStorage
-localStorage.setItem(
-  "user",
-  JSON.stringify({ email, role })
-);
+      localStorage.setItem("user", JSON.stringify({ email, role }));
 
-
-
-
-      // 🔀 Redirect based on role
       if (role === "admin") {
         redirect("/admin");
       } else {
@@ -65,33 +58,33 @@ localStorage.setItem(
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-800 to-slate-500 text-white px-4">
-      <div className="bg-white text-black p-8 rounded-lg shadow-lg w-full max-w-md space-y-4">
-        <h1 className="text-2xl font-bold text-center">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-b from-slate-800 to-slate-500 text-white">
+      <div className="bg-white text-black rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-sm sm:max-w-md lg:max-w-lg space-y-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center">
           {isRegistering ? "Register" : "Login"}
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             name="email"
             placeholder="Email"
             required
-            className="border p-2 w-full rounded"
+            className="w-full border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="password"
             name="password"
             placeholder="Password"
             required
-            className="border p-2 w-full rounded"
+            className="w-full border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {error && (
             <p className="text-red-500 text-sm text-center">{error}</p>
           )}
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 w-full rounded"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold"
           >
             {isRegistering ? "Register" : "Login"}
           </button>
@@ -102,7 +95,7 @@ localStorage.setItem(
             setError("");
             setIsRegistering(!isRegistering);
           }}
-          className="text-sm text-center text-gray-600 underline w-full"
+          className="w-full text-sm text-center text-gray-600 underline"
         >
           {isRegistering
             ? "Already have an account? Log in"
