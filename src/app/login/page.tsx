@@ -58,8 +58,18 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-b from-slate-800 to-slate-500 text-white">
-      <div className="bg-white text-black rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-sm sm:max-w-md lg:max-w-lg space-y-4">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-slate-500 to-slate-500 text-white">
+    {/* ✅ Main Topic Title */}
+    <h1 className="text-5xl font-extrabold mb-6 text-center">
+  {" "}
+  <span className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
+    GAME STORE
+  </span>
+</h1>
+
+
+
+    <div className="bg-white text-black rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-sm sm:max-w-md lg:max-w-lg space-y-4">
         <h1 className="text-2xl sm:text-3xl font-bold text-center">
           {isRegistering ? "Register" : "Login"}
         </h1>
