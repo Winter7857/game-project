@@ -58,7 +58,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-slate-500 to-slate-500 text-white">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-slate-600 to-slate-500 text-white">
     {/* ✅ Main Topic Title */}
     <h1 className="text-5xl font-extrabold mb-6 text-center">
   {" "}
